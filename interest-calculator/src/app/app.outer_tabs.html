@@ -1,0 +1,35 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * The content below content holds tabs  * * * * * * * * * * -->
+
+<style>
+    .outer {
+      display: flex;
+      width: 96%;
+      max-width: 900px;
+      align-items: center;
+      background-color: #f1f4fc;
+      color: rgb(37, 31, 31);
+      border-radius: 15px;
+      margin-top: 5%;
+      margin-bottom: 5%;
+      margin-left: 2%;
+      margin-right: 2%;
+    }
+    .mat-tab-group {
+        display: block;
+        width: 100%;
+        align-items: center;
+    }
+  </style>
+  
+  <!-- Tabs and outer dessign -->
+  <div class="outer">
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="General Compound Interest Calculator">
+        <div class="tab_content"><comp-calc *matTabContent></comp-calc></div>
+      </mat-tab>
+      <mat-tab label="Variable SIP Calculator">Content 2</mat-tab>
+      <mat-tab label="Budget Calculator">Content 3</mat-tab>
+    </mat-tab-group>
+  </div>
+  

@@ -1,0 +1,73 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * The content below contain calculator  * * * * * * * * * * -->
+
+<style>
+    .calc {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #dbd8d8;
+      color: rgb(43, 42, 42);
+      max-width: 100%;
+      height: auto;
+      border: outset;
+      border-radius: 15px;
+    }
+    .inner {
+      margin: 20px 10px 20px;
+    }
+    .row {
+      width: 100%;
+    }
+    .item {
+      display: block;
+      margin-top: 30px;
+      margin-left: 30px;
+      border-bottom: inset rgb(211, 208, 208);
+      width: 95%;
+    }
+    .last_item {
+      display: block;
+      width: 95%;
+      margin-top: 30px;
+      margin-left: 30px;
+      margin-bottom: 30px;
+    }
+  </style>
+<div class="calc">
+  <div class="item">
+    <h3>Lumpsum / Principal Amount </h3>
+    <mat-form-field style="width: 80%;margin-left: 10px;" appearance="fill">
+      <input matInput type="number" [(ngModel)]="principal">
+    </mat-form-field>
+  </div>
+  <div class="item">
+    <h3>Number of years</h3>
+    <mat-form-field style="width: 10%;margin-left: 10px;" appearance="fill">
+      <input matInput type="number" [(ngModel)]="value">
+    </mat-form-field>
+    <mat-slider
+        style = "width: 80%;margin-left: 10px;"
+        [disabled]="disabled"
+        [invert]="invert"
+        [max]="max"
+        [min]="min"
+        [step]="step"
+        [thumbLabel]="thumbLabel"
+        [tickInterval]="10"
+        [(ngModel)]="value"
+        [vertical]="vertical"
+        aria-labelledby="example-name-label">
+    </mat-slider>
+  </div>
+  <div class="item">
+    <h3>Interest Rate</h3>
+    <mat-form-field style="width: 10%;margin-left: 10px;" appearance="fill">
+      <input matInput type="number" [(ngModel)]="int_rate">
+    </mat-form-field>
+  </div>
+  <div class="last_item">
+    <h3>Coupounded Amount </h3>
+    <label style="width: 80%;margin-left: 10px;">{{result}}</label>
+  </div>
+</div>
