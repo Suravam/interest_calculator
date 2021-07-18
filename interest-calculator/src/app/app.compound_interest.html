@@ -4,7 +4,8 @@
 <style>
     .outer_calc {
       display: flex;
-      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
       width: 100%;
       font-family: sans-serif;
     }  
@@ -13,22 +14,20 @@
       flex-direction: column;
       align-items: center;
       color: rgb(43, 42, 42);
-      width: 50%;
+      width: auto;
       height: auto;
-    }
-    .inner {
-      margin: 20px 10px 20px;
+      margin-top: 3%;
     }
     .fields {
       font-weight: bold;
       font-size: medium;
-      margin-left: 10px;
+      width: 100%;
     }
     .fields.small {
-      width: 10%;
+      width: 20%;
     }
     .fields.large {
-      width: 80%;
+      width: 70%;
     }
     .fields.result {
       color: rgb(8, 85, 3);
@@ -36,17 +35,7 @@
     }
     .item {
       display: block;
-      margin-top: 10px;
-      margin-left: 10px;
-      width: 95%;
-    }
-    .last_item {
-      display: block;
-      width: 95%;
-      margin-top: 30px;
-      margin-left: 30px;
-      margin-right: 30px;
-      margin-bottom: 30px;
+      width: 100%;
     }
     table {
       width: 100%;
@@ -84,9 +73,6 @@
   </style>
 <div class="outer_calc">
 <div class="calc">
-  <div class="tab_content heading">
-    <h2>General Compound Interest Calculator</h2>
-  </div>
   <div class="item">
     <h3>Lumpsum / Principal Amount </h3>
     <mat-form-field class="fields large" appearance="fill">
@@ -98,8 +84,7 @@
     <mat-form-field class="fields small" appearance="fill">
       <input matInput type="number" [(ngModel)]="n_years">
     </mat-form-field>
-    <mat-slider
-        style = "width: 80%;margin-left: 10px;"
+    <mat-slider class="fields large"
         [disabled]="disabled"
         [invert]="invert"
         [max]="max"
@@ -119,16 +104,13 @@
     </mat-form-field>
     <label class="fields result">%</label>
   </div>
-  <div class="last_item">
+  <div class="item">
     <h3>Coupounded Amount </h3>
     <label class="fields large result">{{calculate()}}</label>
   </div>
 </div>
 
 <div class="calc">
-  <div class="tab_content heading">
-    <h2>Real Growth of Purchasing Power</h2>
-  </div>
   <table mat-table [dataSource]="prepare_datasource()" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
