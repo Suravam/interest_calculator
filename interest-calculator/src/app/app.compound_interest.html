@@ -2,28 +2,42 @@
 <!-- * * The content below contain calculator  * * * * * * * * * * -->
 
 <style>
+    .outer_calc {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      font-family: sans-serif;
+    }  
     .calc {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: #dbd8d8;
       color: rgb(43, 42, 42);
-      max-width: 100%;
+      width: 50%;
       height: auto;
-      border: outset;
-      border-radius: 15px;
     }
     .inner {
       margin: 20px 10px 20px;
     }
-    .row {
-      width: 100%;
+    .fields {
+      font-weight: bold;
+      font-size: medium;
+      margin-left: 10px;
+    }
+    .fields.small {
+      width: 10%;
+    }
+    .fields.large {
+      width: 80%;
+    }
+    .fields.result {
+      color: rgb(8, 85, 3);
+      font-size: large;
     }
     .item {
       display: block;
-      margin-top: 30px;
-      margin-left: 30px;
-      border-bottom: inset rgb(211, 208, 208);
+      margin-top: 10px;
+      margin-left: 10px;
       width: 95%;
     }
     .last_item {
@@ -31,20 +45,58 @@
       width: 95%;
       margin-top: 30px;
       margin-left: 30px;
+      margin-right: 30px;
       margin-bottom: 30px;
     }
+    table {
+      width: 100%;
+    }
+    .cells {
+      font-weight: 400;
+      font-size: medium;
+    }
+    .head {
+      font-weight: 600;
+    }
+    .inf {
+      color: rgb(168, 31, 31);
+    }
+    .int {
+      color: royalblue;
+    }
+    .positive{
+      color: seagreen;
+    }
+    .negative{
+      color: rgb(168, 31, 31);;
+    }
+    .mat-column-position{
+      width: 4%;
+    }
+    .mat-column-year,
+    .mat-column-inflation,
+    .mat-column-interest,
+    .mat-column-real_rate,
+    .mat-column-real_return
+    {
+      width: 19%;
+    }
   </style>
+<div class="outer_calc">
 <div class="calc">
+  <div class="tab_content heading">
+    <h2>General Compound Interest Calculator</h2>
+  </div>
   <div class="item">
     <h3>Lumpsum / Principal Amount </h3>
-    <mat-form-field style="width: 80%;margin-left: 10px;" appearance="fill">
+    <mat-form-field class="fields large" appearance="fill">
       <input matInput type="number" [(ngModel)]="principal">
     </mat-form-field>
   </div>
   <div class="item">
     <h3>Number of years</h3>
-    <mat-form-field style="width: 10%;margin-left: 10px;" appearance="fill">
-      <input matInput type="number" [(ngModel)]="value">
+    <mat-form-field class="fields small" appearance="fill">
+      <input matInput type="number" [(ngModel)]="n_years">
     </mat-form-field>
     <mat-slider
         style = "width: 80%;margin-left: 10px;"
@@ -55,19 +107,76 @@
         [step]="step"
         [thumbLabel]="thumbLabel"
         [tickInterval]="10"
-        [(ngModel)]="value"
+        [(ngModel)]="n_years"
         [vertical]="vertical"
         aria-labelledby="example-name-label">
     </mat-slider>
   </div>
   <div class="item">
     <h3>Interest Rate</h3>
-    <mat-form-field style="width: 10%;margin-left: 10px;" appearance="fill">
+    <mat-form-field class="fields small" appearance="fill">
       <input matInput type="number" [(ngModel)]="int_rate">
     </mat-form-field>
+    <label class="fields result">%</label>
   </div>
   <div class="last_item">
     <h3>Coupounded Amount </h3>
-    <label style="width: 80%;margin-left: 10px;">{{result}}</label>
+    <label class="fields large result">{{calculate()}}</label>
   </div>
+</div>
+
+<div class="calc">
+  <div class="tab_content heading">
+    <h2>Real Growth of Purchasing Power</h2>
+  </div>
+  <table mat-table [dataSource]="prepare_datasource()" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell class = "cells head" *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="year">
+      <th mat-header-cell class = "cells head" *matHeaderCellDef> Year </th>
+      <td mat-cell class = "cells" *matCellDef="let element"> {{element.year}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="inflation">
+      <th mat-header-cell class = "cells head" *matHeaderCellDef> Inflation </th>
+      <td mat-cell class = "cells inf" *matCellDef="let element"> {{element.inflation}} %</td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="interest">
+      <th mat-header-cell class = "cells head" *matHeaderCellDef> Interest </th>
+      <td mat-cell class = "cells int" *matCellDef="let element"> {{element.interest}} %</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="real_rate">
+      <th mat-header-cell class = "cells head" *matHeaderCellDef> Real Rate of Return </th>
+      <td mat-cell class = "cells" *matCellDef="let element"
+          [ngClass]="{ 
+            'positive': element.real_rate > 0,
+            'negative': element.real_rate < 0
+          }"
+      > {{element.real_rate}} %</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="real_return">
+      <th mat-header-cell class = "cells head" *matHeaderCellDef> Real Growth in Principle </th>
+      <td mat-cell class = "cells" *matCellDef="let element"> {{element.real_return}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
 </div>

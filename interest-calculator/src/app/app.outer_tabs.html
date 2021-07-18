@@ -4,32 +4,66 @@
 <style>
     .outer {
       display: flex;
+      flex-direction: column;
       width: 96%;
-      max-width: 900px;
-      align-items: center;
-      background-color: #f1f4fc;
+      background: white;
+      background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.9), rgba(255,255,255,0.2));
       color: rgb(37, 31, 31);
       border-radius: 15px;
-      margin-top: 5%;
-      margin-bottom: 5%;
-      margin-left: 2%;
-      margin-right: 2%;
+      margin: 2%;
+      padding-bottom: 4%;
+      padding-top: 4%;
+      padding-right: 2%;
     }
-    .mat-tab-group {
-        display: block;
+    .tab_content {
+        display: flex;
+        flex-direction: row;
         width: 100%;
-        align-items: center;
+        margin-top: 50px;
+    }
+    .tab_item {
+      display: block;
+      width: 100%;
+    }
+    .heading {
+        text-align: center;
+        font-weight: bold;
+        font-size: 48px;
+        margin-bottom: 50px;
+    }
+    .blog {
+      font-size: 24px;
+      font-family: sans-serif;
+      margin: 10px 50px 0px;
+      line-height: 34px;
+      color: rgb(54, 69, 83);
     }
   </style>
   
   <!-- Tabs and outer dessign -->
   <div class="outer">
-    <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="General Compound Interest Calculator">
-        <div class="tab_content"><comp-calc *matTabContent></comp-calc></div>
-      </mat-tab>
-      <mat-tab label="Variable SIP Calculator">Content 2</mat-tab>
-      <mat-tab label="Budget Calculator">Content 3</mat-tab>
-    </mat-tab-group>
+    <div class="blog">
+      <h1 class="heading">Why saving money is bad?</h1>
+      <p>The typical Indian middle class mentality is to save first before you spend. From childhood, many of us are exposed to save our money on a bank or post office deposits.<br/><br/></p>
+      <p>
+        This is because of the fact that the hard earned money stays secure in those savings instruments. These instruments rely on issuer's promise to pay a guaranteed rate of interest on the amount invested.
+        The post office and bank deposite rates are widely known. But the impact of "inflation" is widely ignored.<br/><br/> To explain this, we have a calculator and a table below.<br/>
+      </p>
+    </div>
+    <div class="tab_content">
+        <comp-calc class="tab_item"></comp-calc>
+    </div>
+    <div style="text-align:right; font-size: medium;font-weight: 800;margin-top: 15px;">[Note: The sudden fall in inflation from 2014 is mostly due to base effect.]</div>
+    <div class="blog">
+      <p>
+      As you can see the calculator just gives you compound interest + principal, i.e., compounded amount for given rate of interest and time period. <br/><br/>The table on the right tells you about how inflation erodes the money every year. <br/>[All inflation rates are taken from world bank data]<br/><br/>
+      For example, in 2005 if you had invested Rs. 1000/- on a 7% yearly compound interest, then on 2020 its real growth is just 1.46%. How is this calculated? <br/>
+      Year 2005, I have invested Rs.1000 and the money should have grown to Rs. 1070/- by the year end. Then comes our enemy inflation at 4.2% and takes away Rs. 44/- (approx) from the compounded amount. Hence, the actual money growth is just Rs. 1026.41/- <br/>
+      Likewise, each and every year's interest and inflation is calculated and presented the real growth of money in the table.<br/> <br/>
+      Look at the inflation numbers from 2008 to 2013 and the corresponding real returns. For about 6 years the yield was negative. <br/><br/>
+      <img src="../assets/cash_burn.jpg" style="width: 100%;height: 10%;"/>
+      Hence, whenever we save money in deposites, it is equivalent to burning our money slowly.
+    </p>
+    </div>
   </div>
   
